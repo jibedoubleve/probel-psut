@@ -1,0 +1,1 @@
+Import-Module .\src\module-shortcut\core.psm1

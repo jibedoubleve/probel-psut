@@ -38,22 +38,25 @@ function GetSuccessValue($answer) {
 ###############################################################################
 ### MAIN
 ###############################################################################
-[int16]$count = Read-Host -Prompt "How many questions?"
+function Invoke-LensTest {
 
-while ($count -gt 0) {
-    $i = Get-Random -Minimum 0 -Maximum $focale.Length
-    $answer = Read-Host -Prompt "What is the speed for $($focale[$i])"
-    if ($answer -eq "quit") { break }
+    [int16]$count = Read-Host -Prompt "How many questions?"
 
-    Clear-Host
+    while ($count -gt 0) {
+        $i = Get-Random -Minimum 0 -Maximum $focale.Length
+        $answer = Read-Host -Prompt "What is the speed for $($focale[$i])"
+        if ($answer -eq "quit") { break }
+
+        Clear-Host
     
-    $success += $(GetSuccessValue($answer))
+        $success += $(GetSuccessValue($answer))
     
-    $total++
-    $rate = $(($success / $total) * 100)
-    WriteSuccessColor($rate)
+        $total++
+        $rate = $(($success / $total) * 100)
+        WriteSuccessColor($rate)
 
-    Write-Host " Score: $success / $total - $($rate.ToString("#.0"))  %  "
-    $count--
+        Write-Host " Score: $success / $total - $($rate.ToString("#.0"))  %  "
+        $count--
 
+    }
 }
