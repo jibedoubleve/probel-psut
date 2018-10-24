@@ -9,7 +9,12 @@ $dataFile = "$env:APPDATA\psut\shortcuts.xml"
  ##############################################################################>
 function Get-Shortcuts() {
     $r = _GetRepository
-    $r
+    if ($r.Count -eq 0 ) {
+        Write-Host "No shortcuts into the database. Fill it with 'Add-Shortcut'" -ForegroundColor Yellow
+    }
+    else {
+        $r
+    }
 }
 function Add-Shortcut([string]$key, [string]$path) {    
     if ([String]::IsNullOrWhiteSpace($key)) {
@@ -67,8 +72,12 @@ function _GetRepository {
 <##############################################################################
  # EXPORTS
  ##############################################################################>
- Export-ModuleMember -Function 'Get-Shortcuts'
- Export-ModuleMember -Function 'Add-Shortcut'
- Export-ModuleMember -Function 'Remove-Shortcut'
- Export-ModuleMember -Function 'Invoke-Shortcut'
- Export-ModuleMember -Function 'Clear-Shortcuts'
+New-Alias -Name lss -Value Get-Shortcuts
+New-Alias -Name go -Value Invoke-Shortcut
+
+ Export-ModuleMember -Function 'Get-Shortcuts'   -Alias lss
+Export-ModuleMember -Function 'Add-Shortcut'    
+Export-ModuleMember -Function 'Remove-Shortcut' 
+Export-ModuleMember -Function 'Invoke-Shortcut' -Alias go
+Export-ModuleMember -Function 'Clear-Shortcuts' 
+
