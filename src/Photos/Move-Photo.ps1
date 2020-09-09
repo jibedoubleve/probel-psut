@@ -1,12 +1,19 @@
 function Move-Photo {
     param (
-        $src = "$env:userprofile\Downloads\Photos_Temp_source", #"D:\DCIM\100CANON",
+        $src = "D:\DCIM\100CANON",
         $dst = "$env:userprofile\Downloads\Photos_Temp",
         [Parameter(Mandatory = $true)] $date
     )
     $ErrorActionPreference = "Stop"
 
     try {
+        if ($(Test-Path $src) -eq $false) {
+            throw "The destination directory '$src' do not exist!"
+        }
+        if ($(Test-Path $dst) -eq $false) {
+            mkdir $dst
+        }
+
         Push-Location $src
 
         $files = Get-ChildItem -Recurse | where LastWriteTime -GE $(Get-Date $date)
