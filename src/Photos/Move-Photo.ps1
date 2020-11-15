@@ -1,12 +1,29 @@
+function Get-CachedDate {
+    $date = Get-Date("1970/1/1")
+
+    if (Test-Path $path) {
+        $date = Get-Date $(Get-Content $path)
+    }
+
+    return $date;
+}
+
 function Move-Photo {
     param (
         $src = "D:\DCIM\100CANON",
         $dst = "$env:userprofile\Downloads\Photos_Temp",
-        [Parameter(Mandatory = $true)] $date
+        $date = $null
     )
     $ErrorActionPreference = "Stop"
+    $path = "$env:USERPROFILE\Documents\cached_date.txt"
 
     try {
+        if ($null -eq $date) {
+            $date = Get-CachedDate
+        }
+
+        Write-Host "Copying photo from $date to today..."
+
         if ($(Test-Path $src) -eq $false) {
             throw "The destination directory '$src' do not exist!"
         }
@@ -37,6 +54,7 @@ function Move-Photo {
                 }
             }
         }
+        Set-Content -Path $path -Value $(Get-Date) -NoNewline -Force
     }
     finally {
         Pop-Location
