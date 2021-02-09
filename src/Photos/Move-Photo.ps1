@@ -35,8 +35,8 @@ function Move-Photo {
 
         Push-Location $src
 
-        $files = Get-ChildItem -Recurse | where LastWriteTime -GE $(Get-Date $date)
-        $dates = (Get-ChildItem -Recurse | where LastWriteTime -GE $(Get-Date $date) | select -ExpandProperty LastWriteTime) | select -ExpandProperty Date -unique
+        $files = Get-ChildItem -Recurse | where LastWriteTime -GT $(Get-Date $date)
+        $dates = (Get-ChildItem -Recurse | where LastWriteTime -GT $(Get-Date $date) | select -ExpandProperty LastWriteTime) | select -ExpandProperty Date -unique
 
         foreach ($d in $dates) {    
             $dir = '{0:0000}-{1:00}-{2:00}' -f $d.Year, $d.Month, $d.Day
