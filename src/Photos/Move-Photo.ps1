@@ -10,12 +10,14 @@ function Get-CachedDate {
 
 function Move-Photo {
     param (
-        $src = "D:\DCIM\100CANON",
+        $drive = "D",
+        $src = ":\DCIM\100CANON",
         $dst = "$env:userprofile\Downloads\Photos_Temp",
         $date = $null
     )
     $ErrorActionPreference = "Stop"
     $path = "$env:USERPROFILE\Documents\cached_date.txt"
+    $src = "$drive$src"
 
     try {
         if ($null -eq $date) {
