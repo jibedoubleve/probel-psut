@@ -3,4 +3,5 @@
 Import-Module $PSScriptRoot\modules\module-shortcut.ps1
 Import-Module $PSScriptRoot\modules\module-winhelpers.ps1
 Import-Module $PSScriptRoot\modules\module-photo.ps1
+Import-Module $PSScriptRoot\modules\vs-open-solution.ps1
 # Pop-Location
